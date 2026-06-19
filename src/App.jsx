@@ -4,6 +4,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ForgotPassword from "./pages/ForgotPassword";
+import Employees from './pages/Employees';
 
 function App(){
   return(
@@ -12,6 +13,14 @@ function App(){
       <Route path = '/signup' element = {<Signup />} />
       <Route path = '/dashboard' element = {<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       <Route path = "/forgot-password" element = {<ForgotPassword />} />
+      <Route
+  path="/employees"
+  element={
+    <ProtectedRoute>
+      <Employees />
+    </ProtectedRoute>
+  }
+/>
     </Routes>
   )
 }
