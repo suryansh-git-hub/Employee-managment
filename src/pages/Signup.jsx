@@ -12,21 +12,34 @@ function Signup() {
   const [password, setPassword] = useState("");
 
   const handleSignup = () => {
-    const user = {
-      name,
-      email,
-      password,
-    };
-
-    localStorage.setItem(
-      "user",
-      JSON.stringify(user)
-    );
-
-    alert("Registration Successful");
-
-    navigate("/");
+ const newUser = {
+    name,
+    email,
+    password,
   };
+    const users =
+    JSON.parse(localStorage.getItem("users")) || [];
+
+  const userExists = users.find(
+    (user) => user.email === email
+  );
+
+  if (userExists) {
+    alert("User already exists");
+    return;
+  }
+
+  users.push(newUser);
+
+  localStorage.setItem(
+    "users",
+    JSON.stringify(users)
+  );
+
+  alert("Registration Successful");
+
+  navigate("/");
+};
 
   return (
     <div>

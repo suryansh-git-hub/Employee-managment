@@ -14,24 +14,26 @@ function Login() {
     useState("");
 
   const handleLogin = () => {
-    const storedUser = JSON.parse(
-      localStorage.getItem("user")
+  const users =
+    JSON.parse(localStorage.getItem("users")) || [];
+
+  const user = users.find(
+    (u) =>
+      u.email === email &&
+      u.password === password
+  );
+
+  if (user) {
+    localStorage.setItem(
+      "loggedInUser",
+      JSON.stringify(user)
     );
 
-    if (
-      storedUser?.email === email &&
-      storedUser?.password === password
-    ) {
-      localStorage.setItem(
-        "loggedInUser",
-        JSON.stringify(storedUser)
-      );
-
-      navigate("/dashboard");
-    } else {
-      alert("Invalid Credentials");
-    }
-  };
+    navigate("/dashboard");
+  } else {
+    alert("Invalid Credentials");
+  }
+};
 
   return (
     <div>
@@ -63,6 +65,8 @@ function Login() {
   Don't have an account?
   <Link to="/signup"> Sign Up</Link>
 </p>
+          <Link to = "/forgot-password">
+          Forgot Password ?</Link>
     </div>
   );
 }
