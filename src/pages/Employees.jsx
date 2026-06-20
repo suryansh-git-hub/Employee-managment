@@ -14,12 +14,16 @@ function Employees() {
 
   const [isModalOpen, setIsModalOpen] =
     useState(false);
+  
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [department, setDepartment] =
     useState("");
+  const [editingEmployee,
+       setEditingEmployee] =
+       useState(null);
 
   useEffect(() => {
     fetch("https://dummyjson.com/users")
@@ -34,7 +38,33 @@ function Employees() {
       });
   }, []);
 
-  const handleAddEmployee = () => {
+const handleSaveEmployee = () => {
+
+  if (editingEmployee) {
+
+    const updatedEmployees =
+      employees.map(
+        (employee) =>
+          employee.id ===
+          editingEmployee.id
+            ? {
+                ...employee,
+                firstName: name,
+                email,
+                phone,
+                company: {
+                  department,
+                },
+              }
+            : employee
+      );
+
+    setEmployees(
+      updatedEmployees
+    );
+
+  } else {
+
     const newEmployee = {
       id: Date.now(),
       firstName: name,
@@ -52,14 +82,39 @@ function Employees() {
       newEmployee,
       ...employees,
     ]);
+  }
 
-    setName("");
-    setEmail("");
-    setPhone("");
-    setDepartment("");
+  setName("");
+  setEmail("");
+  setPhone("");
+  setDepartment("");
 
-    setIsModalOpen(false);
-  };
+  setEditingEmployee(null);
+
+  setIsModalOpen(false);
+};
+
+  const handleEdit = (employee) => {
+  setEditingEmployee(employee);
+
+  setName(
+    employee.firstName
+  );
+
+  setEmail(
+    employee.email
+  );
+
+  setPhone(
+    employee.phone
+  );
+
+  setDepartment(
+    employee.company.department
+  );
+
+  setIsModalOpen(true);
+};
 
   const handleDelete = (id) => {
   setEmployees(
@@ -154,6 +209,7 @@ function Employees() {
       <Table
         employees={filteredEmployees}
         onDelete={handleDelete}
+        onEdit = {handleEdit}
       />
 
       <Modal
@@ -217,10 +273,12 @@ function Employees() {
 
           <button
             onClick={
-              handleAddEmployee
+              handleSaveEmployee
             }
           >
-            Add Employee
+           {editingEmployee
+    ? "Update Employee"
+    : "Add Employee"}
           </button>
         </div>
       </Modal>
