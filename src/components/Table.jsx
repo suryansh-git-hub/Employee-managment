@@ -1,4 +1,4 @@
-function Table({ employees }) {
+function Table({ employees,onDelete }) {
   return (
     <table border="1" cellPadding="10">
       <thead>
@@ -8,6 +8,7 @@ function Table({ employees }) {
           <th>Email</th>
           <th>Department</th>
           <th>Phone</th>
+          <th>Actions</th>
         </tr>
       </thead>
 
@@ -33,6 +34,7 @@ function Table({ employees }) {
             </td>
 
             <td>{employee.phone}</td>
+            <td><button onClick={() => onDelete(employee.id)}>Delete</button></td>
           </tr>
         ))}
       </tbody>
