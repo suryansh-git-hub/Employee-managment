@@ -9,32 +9,24 @@ function DashboardLayout({ children }) {
 
   return (
     <div
-      style={{
-        display: "flex",
-    backgroundColor:
-      theme === "light"
-        ? "#ffffff"
-        : "#1e1e1e",
-    color:
-      theme === "light"
-        ? "#000000"
-        : "#ffffff",
-    minHeight: "100vh",
-      }}
+       className={`
+        flex min-h-screen
+        ${
+          theme === "light"
+            ? "bg-gray-100 text-gray-900"
+            : "bg-zinc-900 text-white"
+        }
+      `}
     >
       <Sidebar />
 
       <div
-        style={{
-          flex: 1,
-        }}
+        className="flex-1"
       >
         <Navbar />
 
         <div
-          style={{
-            padding: "20px",
-          }}
+          className="p-6 md:p-8"
         >
           {children}
         </div>
