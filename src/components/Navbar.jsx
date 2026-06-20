@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
 function Navbar() {
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const user = JSON.parse(
     localStorage.getItem("loggedInUser")
@@ -35,6 +38,11 @@ function Navbar() {
         >
           Logout
         </button>
+        <button onClick={toggleTheme}>
+  {theme === "light"
+    ? "Dark Mode"
+    : "Light Mode"}
+</button>
       </div>
     </div>
   );

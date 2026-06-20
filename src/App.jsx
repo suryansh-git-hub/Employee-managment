@@ -5,7 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ForgotPassword from "./pages/ForgotPassword";
 import Employees from './pages/Employees';
-
+import NotFound from "./pages/NotFound"; 
 function App(){
   return(
     <Routes>
@@ -18,9 +18,11 @@ function App(){
   element={
     <ProtectedRoute>
       <Employees />
-    </ProtectedRoute>
-  }
-/>
+    </ProtectedRoute> }/>
+     <Route
+    path="*"
+    element={<NotFound />}
+  />
     </Routes>
   )
 }
