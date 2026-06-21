@@ -42,8 +42,45 @@ function Signup() {
 };
 
   return (
-    <div>
-      <h2>Signup</h2>
+     <div
+    className="
+      min-h-screen
+      flex
+      items-center
+      justify-center
+      bg-gray-100
+    "
+  >
+    <div
+      className="
+        bg-white
+        p-8
+        rounded-2xl
+        shadow-lg
+        w-full
+        max-w-md
+      "
+    >
+      <h1
+        className="
+          text-3xl
+          font-bold
+          text-center
+          mb-2
+        "
+      >
+        Create Account
+      </h1>
+
+      <p
+        className="
+          text-center
+          text-gray-500
+          mb-6
+        "
+      >
+        Register to continue
+      </p>
 
       <Input
         type="text"
@@ -72,15 +109,36 @@ function Signup() {
         }
       />
 
-      <Button
-        text="Register"
-        onClick={handleSignup}
-      />
-      <p>
-  Already have an account?
-  <Link to="/"> Login</Link>
-</p>
+      <div className="mt-4">
+        <Button
+          text="Register"
+          onClick={handleSignup}
+        />
+      </div>
+
+      <p
+        className="
+          text-center
+          mt-6
+          text-gray-600
+        "
+      >
+        Already have an account?
+
+        <Link
+          to="/"
+          className="
+            text-blue-600
+            font-medium
+            ml-1
+            hover:underline
+          "
+        >
+          Login
+        </Link>
+      </p>
     </div>
+  </div>
   );
 }
 

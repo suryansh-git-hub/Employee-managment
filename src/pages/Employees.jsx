@@ -164,13 +164,30 @@ const handleSaveEmployee = () => {
 
   return (
     <DashboardLayout>
-      <h1>Employees</h1>
+      <h1  className="
+    text-4xl
+    font-bold
+    mb-2
+  ">Employees</h1>
 
-      <p>
+      <p  className="
+    text-gray-500
+    mb-6
+  ">
         Total Employees:
         {filteredEmployees.length}
       </p>
-
+    <div
+  className="
+    flex
+    flex-col
+    md:flex-row
+    gap-4
+    mb-6
+    items-start
+    md:items-center
+  "
+>
       <input
         type="text"
         placeholder="Search employee"
@@ -178,6 +195,18 @@ const handleSaveEmployee = () => {
         onChange={(e) =>
           setSearchTerm(e.target.value)
         }
+         className="
+      border
+      border-gray-300
+      rounded-lg
+      px-4
+      py-2
+      w-full
+      md:w-72
+      focus:outline-none
+      focus:ring-2
+      focus:ring-blue-500
+    "
       />
 
       <select
@@ -187,6 +216,18 @@ const handleSaveEmployee = () => {
             e.target.value
           )
         }
+        className="
+      border
+      border-gray-300
+      rounded-lg
+      px-4
+      py-2
+      w-full
+      md:w-60
+      focus:outline-none
+      focus:ring-2
+      focus:ring-blue-500
+    "
       >
         {departments.map((dept) => (
           <option
@@ -202,10 +243,20 @@ const handleSaveEmployee = () => {
         onClick={() =>
           setIsModalOpen(true)
         }
+         className="
+      bg-green-600
+      text-white
+      px-5
+      py-2
+      rounded-lg
+      hover:bg-green-700
+      transition
+      whitespace-nowrap
+    "
       >
         Add Employee
       </button>
-
+ </div>
       <Table
         employees={filteredEmployees}
         onDelete={handleDelete}
@@ -219,7 +270,15 @@ const handleSaveEmployee = () => {
         }
       >
         <div>
-          <h2>Add Employee</h2>
+          <h2  className="
+    text-2xl
+    font-bold
+    text-gray-800
+    dark:text-white
+    mb-6
+  "> {editingEmployee
+    ? "Edit Employee"
+    : "Add Employee"}</h2>
 
           <input
             type="text"
@@ -228,10 +287,23 @@ const handleSaveEmployee = () => {
             onChange={(e) =>
               setName(e.target.value)
             }
+             className="
+    w-full
+    px-4
+    py-3
+    mb-4
+    border
+    border-gray-300
+    rounded-lg
+    bg-white
+    text-gray-800
+    placeholder-gray-400
+    focus:outline-none
+    focus:ring-2
+    focus:ring-blue-500
+  "
           />
 
-          <br />
-          <br />
 
           <input
             type="email"
@@ -240,10 +312,24 @@ const handleSaveEmployee = () => {
             onChange={(e) =>
               setEmail(e.target.value)
             }
+             className="
+    w-full
+    px-4
+    py-3
+    mb-4
+    border
+    border-gray-300
+    rounded-lg
+    bg-white
+    text-gray-800
+    placeholder-gray-400
+    focus:outline-none
+    focus:ring-2
+    focus:ring-blue-500
+  "
           />
 
-          <br />
-          <br />
+   
 
           <input
             type="text"
@@ -252,10 +338,24 @@ const handleSaveEmployee = () => {
             onChange={(e) =>
               setPhone(e.target.value)
             }
+             className="
+    w-full
+    px-4
+    py-3
+    mb-4
+    border
+    border-gray-300
+    rounded-lg
+    bg-white
+    text-gray-800
+    placeholder-gray-400
+    focus:outline-none
+    focus:ring-2
+    focus:ring-blue-500
+  "
           />
 
-          <br />
-          <br />
+     
 
           <input
             type="text"
@@ -266,15 +366,37 @@ const handleSaveEmployee = () => {
                 e.target.value
               )
             }
+             className="
+    w-full
+    px-4
+    py-3
+    mb-4
+    border
+    border-gray-300
+    rounded-lg
+    bg-white
+    text-gray-800
+    placeholder-gray-400
+    focus:outline-none
+    focus:ring-2
+    focus:ring-blue-500
+  "
           />
 
-          <br />
-          <br />
+       
 
           <button
             onClick={
               handleSaveEmployee
             }
+            className="  w-full
+    bg-blue-600
+    text-white
+    py-3
+    rounded-lg
+    font-medium
+    hover:bg-blue-700
+    transition"
           >
            {editingEmployee
     ? "Update Employee"
@@ -282,6 +404,7 @@ const handleSaveEmployee = () => {
           </button>
         </div>
       </Modal>
+     
     </DashboardLayout>
   );
 }

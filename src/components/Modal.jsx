@@ -3,27 +3,41 @@ function Modal({ isOpen, onClose, children }) {
 
   return (
     <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        backgroundColor: "rgba(0,0,0,0.5)",
-      }}
+      className="
+        fixed
+        inset-0
+        bg-black/50
+        flex
+        items-center
+        justify-center
+        z-50
+      "
     >
       <div
-        style={{
-          backgroundColor: "white",
-          width: "500px",
-          margin: "100px auto",
-          padding: "20px",
-          borderRadius: "10px",
-        }}
+        className="
+          bg-white
+          dark:bg-zinc-800
+          rounded-xl
+          shadow-xl
+          w-full
+          max-w-lg
+          p-6
+          mx-4
+        "
       >
-        <button onClick={onClose}>
-          Close
-        </button>
+        <div className="flex justify-end mb-4">
+          <button
+            onClick={onClose}
+            className="
+             text-gray-500
+    hover:text-red-500
+    font-medium
+    transition
+            "
+          >
+            Close
+          </button>
+        </div>
 
         {children}
       </div>

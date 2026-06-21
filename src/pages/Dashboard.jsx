@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+//import { FaUsers } from "react-icons/fa";
+
 
 import StatCard from "../components/StatCard";
 import Loader from "../components/Loader";
@@ -51,15 +53,20 @@ function Dashboard() {
   return (
     <DashboardLayout >
     <div style={{ padding: "20px" }}>
-      <h1>Dashboard</h1>
+      <h1 className ="text-4xl
+font-bold
+mb-8
+">Dashboard</h1>
 
       <div
-        style={{
-          display: "flex",
-          gap: "20px",
-          flexWrap: "wrap",
-          marginTop: "20px",
-        }}
+         className="
+    grid
+    grid-cols-1
+    md:grid-cols-2
+    xl:grid-cols-4
+    gap-6
+    mt-6
+  "
       >
         <StatCard
           title="Total Employees"
