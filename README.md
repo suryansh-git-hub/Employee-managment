@@ -1,3 +1,25 @@
+# Live Demo
+[Employee-Dashboard](https://employee-managment-chi.vercel.app/)
+
+## Features
+- User Authentication
+- Forgot Password
+- Dashboard Statistics
+- Employee Search & Filter
+- Add/Edit/Delete Employees
+- Dark/Light Theme
+- Responsive Design
+- Protected Routes
+- 404 Page
+
+## Technology Used
+- React
+- React Router
+- Tailwind CSS
+- Context API
+- Local Storage
+- DummyJSON API
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
