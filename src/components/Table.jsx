@@ -1,23 +1,48 @@
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
+
 function Table({ employees, onDelete, onEdit }) {
+  const {theme} = useContext(ThemeContext);
   return (
     <div className="overflow-x-auto mt-6">
-      <table className="w-full bg-white rounded-xl shadow-md overflow-hidden">
-        <thead className="bg-gray-100">
-          <tr>
+      <table className= {`
+    w-full
+    rounded-xl
+    shadow-md
+    overflow-hidden
+    ${
+      theme === "light"
+        ? "bg-white text-gray-800"
+        : "bg-zinc-800 text-white"
+    }
+  `}>
+        <thead className= { theme === "light"
+      ? "bg-gray-100 text-gray-800"
+      : "bg-zinc-700 text-white"
+  }>
+          <tr  >
             <th className="px-4 py-3 text-left">Image</th>
             <th className="px-4 py-3 text-left">Name</th>
             <th className="px-4 py-3 text-left">Email</th>
             <th className="px-4 py-3 text-left">Department</th>
             <th className="px-4 py-3 text-left">Phone</th>
-            <th className="px-4 py-3 text-center">Actions</th>
+            <th className="px-4 py-3 text-left">Actions</th>
           </tr>
         </thead>
 
         <tbody>
           {employees.map((employee) => (
             <tr
-              key={employee.id}
-              className="border-t hover:bg-gray-50 transition"
+               key={employee.id}
+  className={`
+    border-t
+    transition
+    ${
+      theme === "light"
+        ? "border-gray-200 hover:bg-gray-50"
+        : "border-zinc-700 hover:bg-zinc-700"
+    }
+  `}
             >
               <td className="px-4 py-3">
                 <img
@@ -27,7 +52,7 @@ function Table({ employees, onDelete, onEdit }) {
                 />
               </td>
 
-              <td className="px-4 py-3 font-medium">
+              <td className="px-4 py-3">
                 {employee.firstName} {employee.lastName}
               </td>
 

@@ -9,24 +9,31 @@ function DashboardLayout({ children }) {
 
   return (
     <div
-       className={`
-        flex min-h-screen
-        ${
-          theme === "light"
-            ? "bg-gray-100 text-gray-900"
-            : "bg-zinc-900 text-white"
-        }
-      `}
+        className={`
+    flex
+    h-screen
+    overflow-hidden
+    ${
+      theme === "light"
+        ? "bg-gray-100 text-gray-900"
+        : "bg-zinc-900 text-white"
+    }
+  `}
     >
       <Sidebar />
 
       <div
-        className="flex-1"
+        className="flex-1 flex
+    flex-col
+    overflow-hidden"
       >
         <Navbar />
 
         <div
-          className="p-6 md:p-8"
+          className=" flex-1
+    overflow-y-auto
+    p-6
+    md:p-8"
         >
           {children}
         </div>

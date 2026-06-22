@@ -1,19 +1,12 @@
 import { useState, useEffect } from "react";
-//import { FaUsers } from "react-icons/fa";
-
-
 import StatCard from "../components/StatCard";
 import Loader from "../components/Loader";
-
 import DashboardLayout from "../layouts/DashboardLayout";
-
 
 
 function Dashboard() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-
-
 
   useEffect(() => {
     fetch("https://dummyjson.com/users")
@@ -27,12 +20,10 @@ function Dashboard() {
         setLoading(false);
       });
   }, []);
-  
-  
 
- if (loading) {
-  return <Loader />;
-}
+  if (loading) {
+    return <Loader />;
+  }
 
   const totalEmployees = users.length;
 
@@ -46,49 +37,44 @@ function Dashboard() {
 
   const totalDepartments = [
     ...new Set(
-      users.map((user) => user.company.department)
+      users.map(
+        (user) => user.company.department
+      )
     ),
   ].length;
 
   return (
-    <DashboardLayout >
-    <div style={{ padding: "20px" }}>
-      <h1 className ="text-4xl
-font-bold
-mb-8
-">Dashboard</h1>
+    <DashboardLayout>
+      <div className="p-6">
+        <h1 className="text-4xl font-bold mb-8">
+          Dashboard
+        </h1>
 
-      <div
-         className="
-    grid
-    grid-cols-1
-    md:grid-cols-2
-    xl:grid-cols-4
-    gap-6
-    mt-6
-  "
-      >
-        <StatCard
-          title="Total Employees"
-          count={totalEmployees}
-        />
+        <div
+          className="  grid grid-cols-1sm:grid-cols-2 lg:grid-cols-4 gap-6
+          "
+        >
+          <StatCard
+            title="Total Employees"
+            count={totalEmployees}
+          />
 
-        <StatCard
-          title="Total Departments"
-          count={totalDepartments}
-        />
+          <StatCard
+            title="Total Departments"
+            count={totalDepartments}
+          />
 
-        <StatCard
-          title="Male Employees"
-          count={totalMaleEmployees}
-        />
+          <StatCard
+            title="Male Employees"
+            count={totalMaleEmployees}
+          />
 
-        <StatCard
-          title="Female Employees"
-          count={totalFemaleEmployees}
-        />
+          <StatCard
+            title="Female Employees"
+            count={totalFemaleEmployees}
+          />
+        </div>
       </div>
-    </div>
     </DashboardLayout>
   );
 }

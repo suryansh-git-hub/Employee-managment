@@ -12,6 +12,15 @@ function Signup() {
   const [password, setPassword] = useState("");
 
   const handleSignup = () => {
+    if (!name || !email || !password) {
+  alert("Please fill all fields");
+  return;
+}
+
+    if (!email.includes("@")) {
+    alert('Email must contain @');
+  return;
+}
  const newUser = {
     name,
     email,
@@ -40,6 +49,8 @@ function Signup() {
 
   navigate("/");
 };
+
+
 
   return (
      <div

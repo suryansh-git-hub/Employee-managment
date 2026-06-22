@@ -1,28 +1,37 @@
-
 function StatCard({ title, count }) {
   return (
-    <div    className="
+    <div
+      className="
         bg-white
         dark:bg-zinc-800
         rounded-xl
         shadow-md
         p-6
-        w-60
         hover:shadow-lg
         transition
-      ">
-      <h3 className="
+      "
+    >
+      <h3
+        className="
           text-gray-500
-          text-xl
+          text-lg
           font-medium
-        ">{title}</h3>
+        "
+      >
+        {title}
+      </h3>
 
-      <h1   className="
-          text-white
-text-3xl
-font-bold
-mt-4
-        ">{count}</h1>
+      <h1
+        className="
+          text-3xl
+          font-bold
+          mt-4
+          text-gray-900
+          dark:text-white
+        "
+      >
+        {count}
+      </h1>
     </div>
   );
 }

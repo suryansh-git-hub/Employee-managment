@@ -13,6 +13,15 @@ function Login() {
     useState("");
 
   const handleLogin = () => {
+    if (!email || !password) {
+  alert("Please fill all fields");
+  return;
+}
+
+if (!email.includes("@")) {
+  alert("Email must contain @");
+  return;
+}
     const users =
       JSON.parse(
         localStorage.getItem("users")

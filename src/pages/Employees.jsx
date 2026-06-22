@@ -3,6 +3,8 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import Loader from "../components/Loader";
 import Table from "../components/Table";
 import Modal from "../components/Modal";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
 function Employees() {
   const [employees, setEmployees] = useState([]);
@@ -21,6 +23,9 @@ function Employees() {
   const [phone, setPhone] = useState("");
   const [department, setDepartment] =
     useState("");
+
+    const { theme } = useContext(ThemeContext);
+
   const [editingEmployee,
        setEditingEmployee] =
        useState(null);
@@ -39,6 +44,17 @@ function Employees() {
   }, []);
 
 const handleSaveEmployee = () => {
+  if (
+  !name || !email ||  !phone || !department
+) {
+  alert("Please fill all fields");
+  return;
+}
+
+if (!email.includes("@")) {
+  alert("Email must contain @");
+  return;
+}
 
   if (editingEmployee) {
 
@@ -179,14 +195,8 @@ const handleSaveEmployee = () => {
       </p>
     <div
   className="
-    flex
-    flex-col
-    md:flex-row
-    gap-4
-    mb-6
-    items-start
-    md:items-center
-  "
+    flex flex-col md:flex-row gap-4  mb-6
+    items-start  md:items-center "
 >
       <input
         type="text"
@@ -195,18 +205,22 @@ const handleSaveEmployee = () => {
         onChange={(e) =>
           setSearchTerm(e.target.value)
         }
-         className="
-      border
-      border-gray-300
-      rounded-lg
-      px-4
-      py-2
-      w-full
-      md:w-72
-      focus:outline-none
-      focus:ring-2
-      focus:ring-blue-500
-    "
+         className={`
+  border
+  rounded-lg
+  px-4
+  py-2
+  w-full
+  md:w-72
+  focus:outline-none
+  focus:ring-2
+  focus:ring-blue-500
+  ${
+    theme === "light"
+      ? "bg-white text-gray-800 border-gray-300"
+      : "bg-zinc-800 text-white border-zinc-600"
+  }
+`}
       />
 
       <select
@@ -216,18 +230,22 @@ const handleSaveEmployee = () => {
             e.target.value
           )
         }
-        className="
-      border
-      border-gray-300
-      rounded-lg
-      px-4
-      py-2
-      w-full
-      md:w-60
-      focus:outline-none
-      focus:ring-2
-      focus:ring-blue-500
-    "
+        className= {`
+  border
+  rounded-lg
+  px-4
+  py-2
+  w-full
+  md:w-60
+  focus:outline-none
+  focus:ring-2
+  focus:ring-blue-500
+  ${
+    theme === "light"
+      ? "bg-white text-gray-800 border-gray-300"
+      : "bg-zinc-800 text-white border-zinc-600"
+  }
+`}
       >
         {departments.map((dept) => (
           <option
@@ -252,16 +270,19 @@ const handleSaveEmployee = () => {
       hover:bg-green-700
       transition
       whitespace-nowrap
+      cursor-pointer
     "
       >
         Add Employee
       </button>
  </div>
+ <div className="overflow-x-auto rounded-xl">
       <Table
         employees={filteredEmployees}
         onDelete={handleDelete}
         onEdit = {handleEdit}
       />
+      </div>
 
       <Modal
         isOpen={isModalOpen}
@@ -271,11 +292,11 @@ const handleSaveEmployee = () => {
       >
         <div>
           <h2  className="
-    text-2xl
+           text-2xl
     font-bold
-    text-gray-800
-    dark:text-white
+    text-center
     mb-6
+    text-gray-800
   "> {editingEmployee
     ? "Edit Employee"
     : "Add Employee"}</h2>
@@ -287,22 +308,22 @@ const handleSaveEmployee = () => {
             onChange={(e) =>
               setName(e.target.value)
             }
-             className="
+             className= {`
     w-full
+    border
+    rounded-lg
     px-4
     py-3
     mb-4
-    border
-    border-gray-300
-    rounded-lg
-    bg-white
-    text-gray-800
-    placeholder-gray-400
     focus:outline-none
     focus:ring-2
     focus:ring-blue-500
-  "
-          />
+    ${
+      theme === "light"
+        ? "bg-white text-gray-800 border-gray-300"
+        : "bg-zinc-800 text-white border-zinc-600"
+    }
+  `} />
 
 
           <input
@@ -312,22 +333,22 @@ const handleSaveEmployee = () => {
             onChange={(e) =>
               setEmail(e.target.value)
             }
-             className="
+             className={`
     w-full
+    border
+    rounded-lg
     px-4
     py-3
     mb-4
-    border
-    border-gray-300
-    rounded-lg
-    bg-white
-    text-gray-800
-    placeholder-gray-400
     focus:outline-none
     focus:ring-2
     focus:ring-blue-500
-  "
-          />
+    ${
+      theme === "light"
+        ? "bg-white text-gray-800 border-gray-300"
+        : "bg-zinc-800 text-white border-zinc-600"
+    }
+  `} />
 
    
 
@@ -338,22 +359,22 @@ const handleSaveEmployee = () => {
             onChange={(e) =>
               setPhone(e.target.value)
             }
-             className="
+             className={`
     w-full
+    border
+    rounded-lg
     px-4
     py-3
     mb-4
-    border
-    border-gray-300
-    rounded-lg
-    bg-white
-    text-gray-800
-    placeholder-gray-400
     focus:outline-none
     focus:ring-2
     focus:ring-blue-500
-  "
-          />
+    ${
+      theme === "light"
+        ? "bg-white text-gray-800 border-gray-300"
+        : "bg-zinc-800 text-white border-zinc-600"
+    }
+  `}   />
 
      
 
@@ -366,21 +387,22 @@ const handleSaveEmployee = () => {
                 e.target.value
               )
             }
-             className="
+             className= {`
     w-full
+    border
+    rounded-lg
     px-4
     py-3
     mb-4
-    border
-    border-gray-300
-    rounded-lg
-    bg-white
-    text-gray-800
-    placeholder-gray-400
     focus:outline-none
     focus:ring-2
     focus:ring-blue-500
-  "
+    ${
+      theme === "light"
+        ? "bg-white text-gray-800 border-gray-300"
+        : "bg-zinc-800 text-white border-zinc-600"
+    }
+  `}
           />
 
        
@@ -389,14 +411,16 @@ const handleSaveEmployee = () => {
             onClick={
               handleSaveEmployee
             }
-            className="  w-full
-    bg-blue-600
-    text-white
-    py-3
-    rounded-lg
-    font-medium
-    hover:bg-blue-700
-    transition"
+            className="w-full
+bg-blue-600
+hover:bg-blue-700
+text-white
+font-semibold
+py-3
+rounded-xl
+transition-all
+duration-200
+cursor-pointer"
           >
            {editingEmployee
     ? "Update Employee"

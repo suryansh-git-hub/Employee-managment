@@ -9,9 +9,7 @@ function Navbar() {
   const { theme, toggleTheme } =
     useContext(ThemeContext);
 
-  const user = JSON.parse(
-    localStorage.getItem("loggedInUser")
-  );
+
 
   const handleLogout = () => {
     localStorage.removeItem("loggedInUser");
@@ -30,14 +28,12 @@ function Navbar() {
         }
       `}
     >
-      <h2 className="text-3xl font-bold whitespace-nowrap">
+      <h2 className="text-xl md:text-3xl font-bold whitespace-nowrap">
         Employee Dashboard
       </h2>
 
       <div className="flex items-center gap-4">
-        <span className="flex items-center gap-6">
-          Welcome, {user?.name}
-        </span>
+       
 
         <button
           onClick={toggleTheme}

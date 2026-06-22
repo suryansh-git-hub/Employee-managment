@@ -1,43 +1,53 @@
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
+
 function Modal({ isOpen, onClose, children }) {
+
+  
+  const { theme } = useContext(ThemeContext);
+  
   if (!isOpen) return null;
+  
 
   return (
     <div
       className="
-        fixed
-        inset-0
-        bg-black/50
-        flex
-        items-center
-        justify-center
+        fixed inset-0
+        bg-black/60
+        backdrop-blur-sm
+        flex items-center justify-center
         z-50
       "
     >
       <div
-        className="
-          bg-white
-          dark:bg-zinc-800
-          rounded-xl
-          shadow-xl
+        className={`
+          ${
+  theme === "light"
+    ? "bg-white"
+    : "bg-zinc-900 text-white"
+}
+          rounded-2xl
+          shadow-2xl
           w-full
           max-w-lg
           p-6
           mx-4
-        "
+          relative
+        `}
       >
-        <div className="flex justify-end mb-4">
-          <button
-            onClick={onClose}
-            className="
-             text-gray-500
-    hover:text-red-500
-    font-medium
-    transition
-            "
-          >
-            Close
-          </button>
-        </div>
+        <button
+          onClick={onClose}
+          className="
+            absolute
+            top-4
+            right-4
+            text-gray-500
+            hover:text-red-500
+            text-xl
+          "
+        >
+          ✕
+        </button>
 
         {children}
       </div>

@@ -12,6 +12,15 @@ function ForgotPassword() {
   const navigate = useNavigate();
 
   const handleReset = () => {
+    if (!email || !newPassword) {
+  alert("Please fill all fields");
+  return;
+}
+
+if (!email.includes("@")) {
+  alert("Email must contain @");
+  return;
+}
     const users =
       JSON.parse(
         localStorage.getItem("users")
