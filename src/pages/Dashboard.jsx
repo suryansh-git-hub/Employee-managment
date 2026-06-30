@@ -1,79 +1,88 @@
 import { useState, useEffect } from "react";
-import StatCard from "../components/StatCard";
-import Loader from "../components/Loader";
 import DashboardLayout from "../layouts/DashboardLayout";
-
+import Loader from "../components/Loader";
+import StatCard from "../components/StatCard";
+import employeeApi from "../api/employeeApi";
 
 function Dashboard() {
-  const [users, setUsers] = useState([]);
+  const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const fetchEmployees = async () => {
+    try {
+      const response = await employeeApi.get("/employees");
+
+      setEmployees(response.data.data);
+    } catch (error) {
+      console.log(error);
+      alert("Failed to fetch dashboard data");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    fetch("https://dummyjson.com/users")
-      .then((res) => res.json())
-      .then((data) => {
-        setUsers(data.users);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log("Error fetching users:", err);
-        setLoading(false);
-      });
+    fetchEmployees();
   }, []);
 
   if (loading) {
     return <Loader />;
   }
 
-  const totalEmployees = users.length;
+  // Dashboard Statistics
+  const totalEmployees = employees.length;
 
-  const totalMaleEmployees = users.filter(
-    (user) => user.gender === "male"
-  ).length;
+  const totalDepartments = new Set(
+    employees.map((employee) => employee.department)
+  ).size;
 
-  const totalFemaleEmployees = users.filter(
-    (user) => user.gender === "female"
-  ).length;
+  // const totalDesignations = new Set(
+  //   employees.map((employee) => employee.designation)
+  // ).size;
 
-  const totalDepartments = [
-    ...new Set(
-      users.map(
-        (user) => user.company.department
-      )
-    ),
-  ].length;
+  // const averageSalary =
+  //   employees.length > 0
+  //     ? Math.round(
+  //         employees.reduce(
+  //           (sum, employee) =>
+  //             sum + Number(employee.salary || 0),
+  //           0
+  //         ) / employees.length
+  //       )
+  //     : 0;
 
   return (
     <DashboardLayout>
       <div className="p-6">
+
         <h1 className="text-4xl font-bold mb-8">
           Dashboard
         </h1>
 
-        <div
-          className="  grid grid-cols-1sm:grid-cols-2 lg:grid-cols-4 gap-6
-          "
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
           <StatCard
             title="Total Employees"
             count={totalEmployees}
           />
 
           <StatCard
-            title="Total Departments"
+            title="Departments"
             count={totalDepartments}
           />
 
-          <StatCard
-            title="Male Employees"
-            count={totalMaleEmployees}
+          {/* <StatCard
+            title="Designations"
+            count={totalDesignations}
           />
 
           <StatCard
-            title="Female Employees"
-            count={totalFemaleEmployees}
-          />
+            title="Average Salary"
+            count={`₹${averageSalary}`}
+          /> */}
+
         </div>
+
       </div>
     </DashboardLayout>
   );
