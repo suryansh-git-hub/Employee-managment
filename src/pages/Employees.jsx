@@ -42,7 +42,12 @@ function Employees() {
       setLoading(true);
 
       const response =
-        await employeeApi.get("/employees");
+        await employeeApi.get("/employees",{
+      params: {
+        search: searchTerm,
+        department: selectedDepartment,
+      },
+    });
 
       setEmployees(response.data.data);
     } catch (error) {
@@ -55,7 +60,7 @@ function Employees() {
 
   useEffect(() => {
     fetchEmployees();
-  }, []);
+  }, [searchTerm, selectedDepartment]);
 
   // ===============================
   // Save Employee
@@ -190,26 +195,7 @@ function Employees() {
   // Search & Filter
   // ===============================
 
-  const filteredEmployees =
-    employees.filter((employee) => {
-      const matchesSearch =
-        employee.fullName
-          .toLowerCase()
-          .includes(
-            searchTerm.toLowerCase()
-          );
 
-      const matchesDepartment =
-        selectedDepartment === "All"
-          ? true
-          : employee.department ===
-            selectedDepartment;
-
-      return (
-        matchesSearch &&
-        matchesDepartment
-      );
-    });
 
   const departments = [
     "All",
@@ -231,7 +217,7 @@ function Employees() {
     </h1>
 
     <p className="text-gray-500 mb-6">
-      Total Employees: {filteredEmployees.length}
+      Total Employees: {employees.length}
     </p>
 
     <div className="flex flex-col md:flex-row gap-4 mb-6 items-start md:items-center">
@@ -312,7 +298,7 @@ function Employees() {
     </div>
 
     <Table
-      employees={filteredEmployees}
+      employees={employees}
       onEdit={handleEdit}
       onDelete={handleDelete}
     />
