@@ -71,10 +71,10 @@ function Login() {
       password,
     });
 
-    localStorage.setItem(
-      "token",
-      response.data.token
-    );
+    // localStorage.setItem(
+    //   "token",
+    //   response.data.token
+    // );
 
     localStorage.setItem(
       "user",

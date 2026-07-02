@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
+import authApi from "../api/authApi";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -11,10 +12,19 @@ function Navbar() {
 
 
 
-  const handleLogout = () => {
-    localStorage.removeItem("loggedInUser");
+  const handleLogout = async () => {
+  try {
+    await authApi.post("/logout");
+
+    localStorage.removeItem("user");
+
+    alert("Logged out successfully");
+
     navigate("/");
-  };
+  } catch (error) {
+    console.log(error);
+  }
+};
 
   return (
     <div
