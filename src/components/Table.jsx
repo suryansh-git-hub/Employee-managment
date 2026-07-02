@@ -51,12 +51,18 @@ function Table({ employees, onDelete, onEdit }) {
               `}
             >
               <td className="px-4 py-3">
-                <img
-                  src={employee.profileImage}
-                  alt={employee.fullName}
-                  className="w-12 h-12 rounded-full object-cover"
-                />
-              </td>
+  {employee.profileImage ? (
+    <img
+      src={employee.profileImage}
+      alt={employee.fullName}
+      className="w-12 h-12 rounded-full object-cover"
+    />
+  ) : (
+    <div className="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-sm">
+      👤
+    </div>
+  )}
+</td>
 
               <td className="px-4 py-3">
                 {employee.fullName}

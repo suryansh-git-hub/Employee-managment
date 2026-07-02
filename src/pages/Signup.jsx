@@ -3,6 +3,7 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import authApi from "../api/authApi";
 
 function Signup() {
   const navigate = useNavigate();
@@ -10,46 +11,88 @@ function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [age, setAge] = useState("");
+const [phoneNumber, setPhoneNumber] = useState("");
+const [role, setRole] = useState("Employee");
 
-  const handleSignup = () => {
-    if (!name || !email || !password) {
-  alert("Please fill all fields");
-  return;
-}
+// const handleSignup = async () => {
+//   if (!name || !email || !password) {
+//     alert("Please fill all fields");
+//     return;
+//   }
 
-    if (!email.includes("@")) {
-    alert('Email must contain @');
-  return;
-}
- const newUser = {
-    name,
-    email,
-    password,
-  };
-    const users =
-    JSON.parse(localStorage.getItem("users")) || [];
+//   if (!email.includes("@")) {
+//     alert("Email must contain @");
+//     return;
+//   }
 
-  const userExists = users.find(
-    (user) => user.email === email
-  );
+//   try {
+//     await authApi.post("/register", {
+//       name,
+//       email,
+//       password,
 
-  if (userExists) {
-    alert("User already exists");
+//       // Required by your backend
+//       role: "Employee",
+//       age: 18,
+//       phoneNumber: "9999999999",
+//     });
+
+//     alert("Registration Successful");
+
+//     navigate("/");
+
+//   } catch (error) {
+//     console.log(error);
+
+//     alert(
+//       error.response?.data?.message ||
+//       "Registration Failed"
+//     );
+//   }
+// };
+ 
+const handleSignup = async () => {
+  if (
+    !name ||
+    !email ||
+    !password ||
+    !age ||
+    !phoneNumber ||
+    !role
+  ) {
+    alert("Please fill all fields");
     return;
   }
 
-  users.push(newUser);
+  if (!email.includes("@")) {
+    alert("Email must contain @");
+    return;
+  }
 
-  localStorage.setItem(
-    "users",
-    JSON.stringify(users)
-  );
+  try {
+    const response = await authApi.post("/register", {
+      name,
+      email,
+      password,
+      age: Number(age),
+      phoneNumber,
+      role,
+    });
 
-  alert("Registration Successful");
+    alert(response.data.message);
 
-  navigate("/");
+    navigate("/");
+
+  } catch (error) {
+    console.log(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Registration Failed"
+    );
+  }
 };
-
 
 
   return (
@@ -119,6 +162,36 @@ function Signup() {
           setPassword(e.target.value)
         }
       />
+
+      <Input
+  type="number"
+  placeholder="Age"
+  value={age}
+  onChange={(e) => setAge(e.target.value)}
+/>
+
+        <Input
+  type="text"
+  placeholder="Phone Number"
+  value={phoneNumber}
+  onChange={(e) => setPhoneNumber(e.target.value)}
+/>
+
+          <select
+  value={role}
+  onChange={(e) => setRole(e.target.value)}
+  className="
+    w-full
+    border
+    rounded-lg
+    px-4
+    py-3
+    mt-4
+  "
+>
+  <option value="Employee">Employee</option>
+  <option value="Admin">Admin</option>
+</select>
 
       <div className="mt-4">
         <Button

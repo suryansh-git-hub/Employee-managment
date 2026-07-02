@@ -2,6 +2,7 @@ import { useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { useNavigate, Link } from "react-router-dom";
+import authApi from "../api/authApi";
 
 function Login() {
   const navigate = useNavigate();
@@ -12,39 +13,91 @@ function Login() {
   const [password, setPassword] =
     useState("");
 
-  const handleLogin = () => {
-    if (!email || !password) {
-  alert("Please fill all fields");
-  return;
-}
+//  const handleLogin = async () => {
+//   if (!email || !password) {
+//     alert("Please fill all fields");
+//     return;
+//   }
 
-if (!email.includes("@")) {
-  alert("Email must contain @");
-  return;
-}
-    const users =
-      JSON.parse(
-        localStorage.getItem("users")
-      ) || [];
+//   if (!email.includes("@")) {
+//     alert("Email must contain @");
+//     return;
+//   }
 
-    const user = users.find(
-      (u) =>
-        u.email === email &&
-        u.password === password
+//   try {
+//     const response = await authApi.post("/login", {
+//       email,
+//       password,
+//     });
+
+//     localStorage.setItem(
+//       "token",
+//       response.data.token
+//     );
+
+//     localStorage.setItem(
+//       "user",
+//       JSON.stringify(response.data.user)
+//     );
+
+//     alert("Login Successful");
+
+//     navigate("/dashboard");
+
+//   } catch (error) {
+//     console.log(error);
+
+//     alert(
+//       error.response?.data?.message ||
+//       "Invalid Credentials"
+//     );
+//   }
+// };
+
+  const handleLogin = async () => {
+  if (!email || !password) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  if (!email.includes("@")) {
+    alert("Email must contain @");
+    return;
+  }
+
+  try {
+    const response = await authApi.post("/login", {
+      email,
+      password,
+    });
+
+    localStorage.setItem(
+      "token",
+      response.data.token
     );
 
-    if (user) {
-      localStorage.setItem(
-        "loggedInUser",
-        JSON.stringify(user)
-      );
+    localStorage.setItem(
+      "user",
+      JSON.stringify(response.data.user)
+    );
 
-      navigate("/dashboard");
-    } else {
-      alert("Invalid Credentials");
-    }
-  };
+    alert(response.data.message);
 
+    navigate("/dashboard");
+
+  } catch (error) {
+  console.log("Error:", error);
+
+  if (error.response) {
+    console.log("Status:", error.response.status);
+    console.log("Response:", error.response.data);
+
+    alert(error.response.data.message);
+  } else {
+    console.log("Network Error:", error.message);
+    alert("Unable to connect to server");
+  }
+}}
   return (
     <div
       className="
